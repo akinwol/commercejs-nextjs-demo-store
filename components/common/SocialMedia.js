@@ -82,7 +82,7 @@ export default class SocialMedia extends React.Component {
                 Follow us on Instagram for more updates
               </p>
               <div className="d-flex">
-                <Link href="/about">
+                <Link href="#">
                   <a className="d-flex py-3 align-items-center font-color-black borderbottom border-color-black">
                     <p className="mr-3">Follow us</p>
                     <img src="/icon/arrow-long-right.svg" alt="Arrow icon"/>

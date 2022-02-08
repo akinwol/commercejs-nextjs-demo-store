@@ -8,6 +8,7 @@ import commerce from '../../lib/commerce';
 import Root from '../../components/common/Root';
 import Footer from '../../components/common/Footer';
 import LoginAnimation from '../../components/customer/LoginAnimation';
+import { resolveHref } from 'next/dist/shared/lib/router/router';
 
 class LoginHandler extends Component {
   constructor(props) {
@@ -88,7 +89,7 @@ class LoginHandler extends Component {
           isError: false,
           email: '',
           message: [
-            'If that email address exists in our system, we\'ve just sent you a link to continue logging in!'
+            'If that email address exists in our system, we\'ve just sent you a link to continue logging in! If not make sure to sign up'
           ]
         });
       })
@@ -99,6 +100,8 @@ class LoginHandler extends Component {
         });
       });
   }
+
+
 
   /**
    * Render any errors or success messages

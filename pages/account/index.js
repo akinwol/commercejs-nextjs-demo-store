@@ -265,6 +265,7 @@ class CustomerAccountPage extends Component {
       lastname,
       email,
     } = this.props.customer;
+    console.log({ props: this.props})
 
     return (
       <Root>

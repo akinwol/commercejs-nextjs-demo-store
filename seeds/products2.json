@@ -1,0 +1,23 @@
+{
+    "product": {
+      "name": "Eye Purity Gels",
+      "description": "Treat your skin with active pore enzymes that replenish sun damaged skin.",
+      "price": "18.00",
+      "category_id": "cat_31q0o3J1MwDdjR"
+    },
+    "variant": [
+      {
+        "name": "Size",
+        "options": [
+          {
+            "description": "100ml",
+            "price": "0.00"
+          },
+          {
+            "description": "500ml",
+            "price": "32.00"
+          }
+        ]
+      }
+    ]
+  }

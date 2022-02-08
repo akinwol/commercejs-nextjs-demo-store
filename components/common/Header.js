@@ -6,6 +6,7 @@ import Animation from '../cart/Animation';
 import { Transition } from 'react-transition-group';
 import { connect } from 'react-redux'
 import { clearCustomer } from '../../store/actions/authenticateActions';
+import SignupModal from '../signupModal/SignupM';
 
 const duration = 300;
 
@@ -46,7 +47,9 @@ class Header extends Component {
       showCart: false,
       playAddToCartAnimation: false,
       loggedIn: false,
+      signupModal: false,
     };
+    
 
     this.header = React.createRef();
 
@@ -57,7 +60,9 @@ class Header extends Component {
     this.toggleAddToCartAnimation = this.toggleAddToCartAnimation.bind(this);
     this.handleAddToCartToggle = this.handleAddToCartToggle.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
+    this.openModal = this.openModal.bind(this);
   }
+
 
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll);
@@ -77,6 +82,14 @@ class Header extends Component {
     const { showCart } = this.state;
     this.setState({
       showCart: !showCart,
+    });
+  }
+
+  openModal() {
+    console.log({ state: this.state })
+    const { signupModal } = this.state;
+    this.setState({
+      signupModal: !signupModal,
     });
   }
 
@@ -170,8 +183,45 @@ class Header extends Component {
     );
   }
 
+  renderPromotion() {
+    const { customer } = this.props;
+    const { loggedIn } = this.state;
+
+    if (!loggedIn) {
+      return (
+        <div className="d-flex align-items-center">
+          { customer && customer.firstname && (
+            <span className="mr-2 font-weight-regular">
+              Hi, { customer.firstname }!
+            </span>
+          ) }
+          <Link href="/account">
+            <a className="font-color-black mx-2">
+              My account
+            </a>
+          </Link>
+          <button
+            className="bg-transparent mr-2 font-color-black font-weight-semibold"
+            type="button"
+            onClick={this.handleLogout}
+          >
+            Logout
+          </button>
+        </div>
+      );
+    }
+
+    return (
+      <Link href="/login">
+        <a className="font-color-black login">
+          Login
+        </a>
+      </Link>
+    );
+  }
+
   render() {
-    const { showMobileMenu, showCart } = this.state;
+    const { showMobileMenu, showCart, loggedIn } = this.state;
     const { transparent, cart } = this.props;
 
     return (
@@ -187,9 +237,9 @@ class Header extends Component {
             <Link href="/collection">
               <a className="mr-4 font-color-black">Shop</a>
             </Link>
-            <Link href="/about">
+            {/* <Link href="/about">
               <a className="font-color-black">About</a>
-            </Link>
+            </Link> */}
           </div>
           <div className="logo-container">
             <img
@@ -221,6 +271,19 @@ class Header extends Component {
             </div>
           </div>
         </div>
+        {!loggedIn && (
+           <div className='text-center alert alert-success' >
+           <Link href='#'>
+             <a data-analyze="sign-up" className='font-color-black border-4 border-color-black' onClick={this.openModal}>Click Sign up </a></Link>
+           
+           
+           now and get 20% off for subscribing to our newsletter
+         </div>
+        )
+        
+        }
+       
+        <SignupModal open={this.state.signupModal} setOpen={this.openModal}/>
 
         {/* Mobile Menu */}
         <Transition in={showMobileMenu} timeout={duration}>
@@ -252,6 +315,7 @@ class Header extends Component {
             </div>
           )}
         </Transition>
+    
       </header>
     );
   }
